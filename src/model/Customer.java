@@ -1,5 +1,7 @@
 package model;
 
+import service.CustomerService;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -7,6 +9,23 @@ public class Customer {
     private String firstName;
     private String lastName;
     private String email;
+
+    public Customer(){}
+
+    public Customer(String firstName , String lastName , String email){
+        this.firstName = firstName;
+        this.lastName = lastName;
+        try {
+            if (CustomerService.validateEmail(email))
+                this.email = email;
+            else throw new IllegalArgumentException();
+        } catch (IllegalArgumentException ex){
+            System.out.println("enter valid emailid");
+            System.out.println(ex.getStackTrace()); //Correct handelling
+        }
+    }
+
+
 
     //* Accessor methods(getters) *//
     public String getFirstName(){
@@ -30,29 +49,10 @@ public class Customer {
         this.email = email;
     }
 
-    public Customer(String firstName , String lastName , String email){
-        this.firstName = firstName;
-        this.lastName = lastName;
 
-        try{
-            String emailRegex = "^(.+)@(.+).com$";
-            Pattern pattern = Pattern.compile(emailRegex);
-            //Matcher m = pattern.matcher(emailRegex);
-
-            if(pattern.matcher(email).matches()){
-                this.email = email;
-            }else {
-                throw new IllegalArgumentException();
-            }
-        }
-        catch (IllegalArgumentException ex){
-            System.out.println("enter valid emailid");
-            System.out.println(ex.getStackTrace()); //Correct handelling
-        }
-    }
 
     @Override
     public String toString(){
-        return "Welcome "+firstName+" "+lastName +" "+email;
+        return "First name : "+firstName+" Last name: "+lastName +" Email :"+email;
     }
 }

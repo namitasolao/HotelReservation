@@ -1,21 +1,45 @@
 package service;
 
 import model.Customer;
+import myCollection.CustomerDB;
 
 import java.util.Collection;
-import java.util.List;
+import java.util.regex.Pattern;
 
 public class CustomerService {
-    public void addCustomer(String email , String firstName , String lastName){
+    public static boolean customerExists(String email){
+        if (CustomerDB.getCustomer(email) == null)
+            return false;
+        return true;
+    }
+
+    public static boolean validateEmail(String email){
+        String emailRegex = "^(.+)@(.+).com$";
+        Pattern pattern = Pattern.compile(emailRegex);
+
+        if(pattern.matcher(email).matches()) {
+            return true;
+        }
+        return false;
+    }
+
+    public static void addCustomer(String email , String firstName , String lastName){
+
+        Customer newCustomer = new Customer();
+        newCustomer.setFirstName(firstName);
+        newCustomer.setLastName(lastName);
+        newCustomer.setEmail(email);
+
+        CustomerDB.addNewCustomer(email , newCustomer);
 
     }
 
-//    public Customer getCustomer(String email){
-//
-//    }
-//
-//    public Collection<Customer> getAllCustomers(){
-//
-//    }
+    public static Customer getCustomer(String email){
+        return CustomerDB.getCustomer(email);
+    }
+
+    public static Collection<Customer> getAllCustomers(){
+        return CustomerDB.getAllCustomers();
+    }
     //provide a static reference
 }
