@@ -1,13 +1,12 @@
-package myCollection;
+package dataCollection;
 
 import model.Customer;
-
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
 public class CustomerDB {
-    protected static  Map<String , Customer> customerTable = new HashMap<String , Customer>();
+    final static  Map<String , Customer> customerTable = new HashMap<String , Customer>();
 
     public static Customer getCustomer(String email){
         if(!customerTable.containsKey(email))

@@ -2,17 +2,41 @@ package api;
 
 import model.Customer;
 import model.IRoom;
-import model.Reservation;
+import model.Room;
+import model.RoomType;
 import service.CustomerService;
 import service.ReservationService;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
-public class AdminResource {
-    //provide a static reference
+import static model.RoomType.*;
 
-//    public Customer getCustomer(String customerEmail){}
+public class AdminResource {
+    //    public Customer getCustomer(String customerEmail){}
+
+    public static void createTestData(){
+        // customer
+        HotelResource.creatACustomer("Andrew", "S." ,"andrew@domain.com");
+        // room
+        IRoom newRoom = new Room("TestRoom1", 30.35, SINGLE);
+        List<IRoom> newTestRoom = new ArrayList<IRoom>();
+        newTestRoom.add(newRoom);
+        addRoom(newTestRoom);
+
+        try {
+            //reservation
+            Date checIn = new SimpleDateFormat("MM/dd/yyyy").parse("01/03/2021");
+            Date checOut = new SimpleDateFormat("MM/dd/yyyy").parse("01/13/2021");
+            ReservationService.reserveARoom(checIn, checOut, HotelResource.getCustomer("andrew@domain.com"), newRoom);
+        }catch (Exception e){
+            System.out.println("Error in parsing date :"+e.fillInStackTrace());
+        }
+    }
+
     public static void addRoom(List<IRoom> rooms){
         for(IRoom room : rooms){
             ReservationService.addRoom(room);
@@ -39,8 +63,8 @@ public class AdminResource {
             System.out.println(customer.toString());
         }
         return allCustomers;
-
     }
+
     public static void displayAllReservations(){
         ReservationService.printAllReservations();
     }

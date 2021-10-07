@@ -15,8 +15,6 @@ public class Room implements IRoom {
         this.roomType = roomType;
     }
 
-    //* Accessor methods(getters) *//
-
 //    //public String getRoomNumber(){
 //        return this.roomnumber;
 //    }
@@ -27,7 +25,6 @@ public class Room implements IRoom {
         return this.roomType;
     }
 
-    //* Mutator methods(setters) *//
     public void setRoomnumber(String roomnumber){
         this.roomnumber = roomnumber;
     }
@@ -45,12 +42,12 @@ public class Room implements IRoom {
 
     @Override
     public Double getroomPrice() {
-        return null;
+        return this.roomPrice;
     }
 
     @Override
     public RoomType getRoomType() {
-        return null;
+        return this.roomType;
     }
 
     @Override

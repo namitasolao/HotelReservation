@@ -1,16 +1,12 @@
-package myCollection;
+package dataCollection;
 
-import com.sun.tools.corba.se.idl.SequenceGen;
-import model.Customer;
 import model.IRoom;
 
-import javax.sound.midi.Sequence;
 import java.util.*;
 
-public class RoomsDB {
+public class RoomDB {
 
-    protected static Map<String , IRoom> roomTable = new HashMap<String , IRoom>();
-
+    final static Map<String , IRoom> roomTable = new HashMap<String , IRoom>();
 
     public static IRoom getRoom(String roomNumber){
         return roomTable.get(roomNumber);
@@ -24,7 +20,5 @@ public class RoomsDB {
     public static void addRoom(String roomNumber , IRoom room){
         roomTable.put(roomNumber , room);
     }
-
-
 }
 

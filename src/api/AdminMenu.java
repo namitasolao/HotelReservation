@@ -1,8 +1,7 @@
 package api;
 
-import com.sun.org.apache.bcel.internal.generic.GOTO;
 import model.*;
-import myCollection.ReservationDB;
+import dataCollection.ReservationDB;
 import service.ReservationService;
 
 import java.util.*;
@@ -12,15 +11,11 @@ import static model.RoomType.SINGLE;
 
 public class AdminMenu {
 public static void main(String args[]){
-    IRoom room = new Room("01",34.09 , RoomType.DOUBLE);
-    Customer c = new Customer("as", "ds" , "a.d@dss.com");
 
-Reservation r = new Reservation(c ,room, new Date("01/03/2003") , new Date(" 04/06/2021"));
-    ReservationDB.addAReservation(  "01" , r);
-    new AdminMenu().showAdminMenu();
 }
 
    private static List<IRoom> newRooms = new ArrayList<IRoom>();
+
 public static void addRoom(){
     String yesNo = "";
     Integer roomNumber =0;
@@ -80,7 +75,7 @@ public static void addRoom(){
             try {
                 System.out.println("Would you like to add another room? Y/N");
                 yesNo = scanner.next();
-                switch (yesNo.toUpperCase(Locale.ROOT)) {
+                switch (yesNo.toUpperCase(Locale.US)) {
                     case "Y":
                         addRoom();
                     case "N":
@@ -103,7 +98,7 @@ public static void addRoom(){
 }
 
     public static void showAdminMenu() {
-        System.out.println("Admin Menu \n"+
+        System.out.println("\nAdmin Menu \n"+
                            "------------------------------------------ \n"+
                            "1. See all Customers \n"+
                            "2. See all Rooms \n"+
@@ -137,16 +132,17 @@ public static void addRoom(){
             else  if (inputNumber == 5){
                 new MainMenu().showMainMenu();
             }
-            else  if (inputNumber == 6){}
+            else  if (inputNumber == 6){
+                AdminResource.createTestData();
+                System.out.println("Test data created!");
+                new AdminMenu().showAdminMenu();
+            }
             else {
                 System.out.println("Please enter a correct number!");
                 showAdminMenu();
-
             }
         } catch (Exception e){
             System.out.println("Please enter a valid number!");
-//            System.out.println(e.getLocalizedMessage());
-//            System.out.println(e.fillInStackTrace());
             showAdminMenu();
         }
     }

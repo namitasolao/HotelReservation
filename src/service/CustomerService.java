@@ -1,8 +1,7 @@
 package service;
 
 import model.Customer;
-import myCollection.CustomerDB;
-
+import dataCollection.CustomerDB;
 import java.util.Collection;
 import java.util.regex.Pattern;
 
@@ -24,14 +23,11 @@ public class CustomerService {
     }
 
     public static void addCustomer(String email , String firstName , String lastName){
-
         Customer newCustomer = new Customer();
         newCustomer.setFirstName(firstName);
         newCustomer.setLastName(lastName);
         newCustomer.setEmail(email);
-
         CustomerDB.addNewCustomer(email , newCustomer);
-
     }
 
     public static Customer getCustomer(String email){
@@ -41,5 +37,5 @@ public class CustomerService {
     public static Collection<Customer> getAllCustomers(){
         return CustomerDB.getAllCustomers();
     }
-    //provide a static reference
+
 }

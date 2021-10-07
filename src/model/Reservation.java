@@ -1,9 +1,9 @@
 package model;
 
-import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.Locale;
 
 public class Reservation {
     private Customer customer;
@@ -11,17 +11,15 @@ public class Reservation {
     private Date checkInDate;
     private Date checkOutDate;
 
-    public Reservation(){}
+    //public Reservation(){}
 
     public Reservation(Customer customer , IRoom room ,Date checkInDate ,Date checkOutDate){
         this.customer = customer;
         this.room = room;
         this.checkInDate = checkInDate;
         this.checkOutDate = checkOutDate;
-
     }
 
-    //* Accessor methods(getters) *//
     public Date getCheckInDate(){
         return this.checkInDate;
     }
@@ -31,7 +29,6 @@ public class Reservation {
     public Customer getCustomer() { return this.customer; }
     public IRoom getRoom() {return this.room; }
 
-    //* Mutator methods(setters) *//
     public void setCustomer(Customer customer){
         this.customer = customer;
     }
@@ -47,8 +44,12 @@ public class Reservation {
 
     @Override
     public String toString(){
-
-        return "Room = "+this.room.getRoomnumber()+" Checkin date = "+ (this.checkInDate)+
-                " Checkout date = "+this.checkOutDate+ " Customer = "+this.customer.getFirstName()+ " "+this.customer.getLastName();
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+        return  ("Reservation \n"+
+                this.customer.getFirstName()+" "+this.customer.getLastName()+
+                "\nRoom : "+this.room.getRoomnumber()+"-"+this.room.getRoomType()+
+                "\nPrice : "+this.room.getroomPrice()+" per night"+
+                "\nCheckin date : "+ (sdf.format(this.checkInDate))+
+                " Checkout date : "+(sdf.format(this.checkOutDate)));
     }
 }

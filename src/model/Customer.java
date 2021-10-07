@@ -2,9 +2,6 @@ package model;
 
 import service.CustomerService;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 public class Customer {
     private String firstName;
     private String lastName;
@@ -24,8 +21,6 @@ public class Customer {
             System.out.println(ex.getStackTrace()); //Correct handelling
         }
     }
-
-
 
     //* Accessor methods(getters) *//
     public String getFirstName(){
@@ -49,7 +44,14 @@ public class Customer {
         this.email = email;
     }
 
+    @Override
+    public boolean equals(Object obj){
+        return super.equals(obj);
+    }
 
+    public int hashcode() {
+        return super.hashCode();
+    }
 
     @Override
     public String toString(){
