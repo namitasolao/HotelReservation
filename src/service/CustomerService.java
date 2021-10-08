@@ -23,13 +23,6 @@ public class CustomerService {
     }
 
     public static void addCustomer(String email , String firstName , String lastName){
-//        try {
-//            if (!validateEmail(email))
-//                throw new IllegalArgumentException();
-//        } catch (IllegalArgumentException ex){
-//            System.out.println("Enter valid emailid");
-//            System.out.println(ex.getStackTrace());
-//        }
         Customer newCustomer = new Customer(firstName, lastName, email);
         CustomerDB.addNewCustomer(email , newCustomer);
     }

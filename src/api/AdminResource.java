@@ -65,4 +65,5 @@ public class AdminResource {
     public static void displayAllReservations(){
         ReservationService.getInstance().printAllReservations();
     }
+
 }

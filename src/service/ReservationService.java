@@ -6,7 +6,6 @@ import model.Reservation;
 import dataCollection.RoomDB;
 import dataCollection.ReservationDB;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 
@@ -62,9 +61,7 @@ public class ReservationService {
                     }
                 }
             }
-            for (IRoom availRooms : availableRooms) {
-                System.out.println(availRooms);
-            }
+            printAvailableRooms(availableRooms);
         }catch (Exception e){
             System.out.println("Error "+e.getStackTrace()+ " "+ e.getMessage());
         }
@@ -95,6 +92,12 @@ public class ReservationService {
     public void printAllRooms() {
         for (IRoom rooms : RoomDB.getAllRooms()) {
             System.out.println(rooms.toString());
+        }
+    }
+
+     void printAvailableRooms(Collection<IRoom> availableRooms){
+        for (IRoom availRooms : availableRooms) {
+            System.out.println(availRooms);
         }
     }
 }
