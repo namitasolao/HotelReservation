@@ -52,7 +52,7 @@ public class HotelResource {
         return customerReservations;
     }
 
-    public static Collection<IRoom> findARoom(Date checkInDate , Date checkOutDate) { //Customize the find-a-room method to search for paid rooms or free rooms.
+    public static Collection<IRoom> findARoom(Date checkInDate , Date checkOutDate) {
         Collection<IRoom> availableRooms = ReservationService.findRooms(checkInDate , checkOutDate);
         if(availableRooms.isEmpty()){
             System.out.println("No Rooms are available");
@@ -60,7 +60,5 @@ public class HotelResource {
         }
         return availableRooms;
     }
-
-//    //Allow the users to input how many days out the room recommendation should search if there are no available rooms.
 }
 

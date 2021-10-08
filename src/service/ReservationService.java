@@ -5,8 +5,6 @@ import model.IRoom;
 import model.Reservation;
 import dataCollection.RoomDB;
 import dataCollection.ReservationDB;
-
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
@@ -33,11 +31,6 @@ public class ReservationService {
 
     public static Reservation reserveARoom(Date checkInDate , Date checkOutDate , Customer customer , IRoom room){
         Reservation newReservation = new Reservation(customer, room, checkInDate, checkOutDate);
-//        newReservation.setCheckInDate(checkInDate);
-//        newReservation.setCheckOutDate(checkOutDate);
-//        newReservation.setCustomer(customer);
-//        newReservation.setRoom(room);
-
         ReservationDB.addAReservation( newReservation);
         return newReservation;
     }
@@ -46,7 +39,6 @@ public class ReservationService {
         Collection<IRoom> allRooms =  RoomDB.getAllRooms();
         Collection<Reservation> allReservations = ReservationDB.getAllReservations();
         Collection<IRoom> availableRooms = new ArrayList<IRoom>();
-        ///LocalDate l = new SimpleDateFormat(  checkInDate, "dd/mm/yyyy");
         boolean firstRun = true;
 
         try {

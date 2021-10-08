@@ -15,9 +15,6 @@ public class Room implements IRoom {
         this.roomType = roomType;
     }
 
-//    //public String getRoomNumber(){
-//        return this.roomnumber;
-//    }
     public Double getRoomPrice(){
         return this.roomPrice;
     }

@@ -1,101 +1,94 @@
 package api;
 
 import model.*;
-import dataCollection.ReservationDB;
 import service.ReservationService;
-
 import java.util.*;
-
 import static model.RoomType.DOUBLE;
 import static model.RoomType.SINGLE;
 
 public class AdminMenu {
-public static void main(String args[]){
 
-}
+    private static List<IRoom> newRooms = new ArrayList<IRoom>();
 
-   private static List<IRoom> newRooms = new ArrayList<IRoom>();
+    public static void addRoom(){
+        String yesNo = "";
+        Integer roomNumber =0;
+        Double price = 0.0;
+        RoomType roomType = SINGLE;
+        Scanner scanner = new Scanner(System.in);
 
-public static void addRoom(){
-    String yesNo = "";
-    Integer roomNumber =0;
-    Double price = 0.0;
-    RoomType roomType = SINGLE;
-    Scanner scanner = new Scanner(System.in);
-
-    try {
-        while (true) {
-            Scanner scanner2 = new Scanner(System.in);
-            try {
-                System.out.println("Enter room number ");
-                roomNumber = scanner2.nextInt();
-                if (ReservationService.roomExists(roomNumber.toString())) {
-                    System.out.println("Room with this number already exists!");
-                } else {
-                    break;
-                }
-            }catch (Exception e){
-                System.out.println("Please enter correct value!");
-                continue;
-            }
-        }
-
-        while(true) {
-            Scanner scanner2 = new Scanner(System.in);
-            try {
-                System.out.println("Enter price per night ");
-                price = scanner2.nextDouble();
-                break;
-            }catch (Exception e){
-                System.out.println("Please enter correct price!");
-            }
-        }
-        while (true) {
-            System.out.println("Enter room type: 1 for single bed, 2 for double bed ");
-            String roomTypeInput = scanner.next();
-            switch (roomTypeInput) {
-                case "1":
-                    roomType = SINGLE;
-                    break;
-                case "2":
-                    roomType = DOUBLE;
-                    break;
-                default: {
-                    System.out.println("Please enter correct room type!");
+        try {
+            while (true) {
+                Scanner scanner2 = new Scanner(System.in);
+                try {
+                    System.out.println("Enter room number ");
+                    roomNumber = scanner2.nextInt();
+                    if (ReservationService.roomExists(roomNumber.toString())) {
+                        System.out.println("Room with this number already exists!");
+                    } else {
+                        break;
+                    }
+                }catch (Exception e){
+                    System.out.println("Please enter correct value!");
                     continue;
                 }
             }
-            break;
-        }
 
-        IRoom room = new Room(roomNumber.toString(), price, roomType);
-        newRooms.add(room);
-
-        while (true) {
-            try {
-                System.out.println("Would you like to add another room? Y/N");
-                yesNo = scanner.next();
-                switch (yesNo.toUpperCase(Locale.US)) {
-                    case "Y":
-                        addRoom();
-                    case "N":
+            while(true) {
+                Scanner scanner2 = new Scanner(System.in);
+                try {
+                    System.out.println("Enter price per night ");
+                    price = scanner2.nextDouble();
+                    break;
+                }catch (Exception e){
+                    System.out.println("Please enter correct price!");
+                }
+            }
+            while (true) {
+                System.out.println("Enter room type: 1 for single bed, 2 for double bed ");
+                String roomTypeInput = scanner.next();
+                switch (roomTypeInput) {
+                    case "1":
+                        roomType = SINGLE;
+                        break;
+                    case "2":
+                        roomType = DOUBLE;
                         break;
                     default: {
-                        System.out.println("Please enter Y (Yes) or N (No)!");
+                        System.out.println("Please enter correct room type!");
                         continue;
                     }
                 }
                 break;
-            } catch (Exception e) {
-                System.out.println("Please enter Y (Yes) or N (No)!");
             }
+
+            IRoom room = new Room(roomNumber.toString(), price, roomType);
+            newRooms.add(room);
+
+            while (true) {
+                try {
+                    System.out.println("Would you like to add another room? Y/N");
+                    yesNo = scanner.next();
+                    switch (yesNo.toUpperCase(Locale.US)) {
+                        case "Y":
+                            addRoom();
+                        case "N":
+                            break;
+                        default: {
+                            System.out.println("Please enter Y (Yes) or N (No)!");
+                            continue;
+                        }
+                    }
+                    break;
+                } catch (Exception e) {
+                    System.out.println("Please enter Y (Yes) or N (No)!");
+                }
+            }
+        } catch(Exception e){
+            System.out.println("Please enter valid input!");
+            showAdminMenu();
         }
-    } catch(Exception e){
-        System.out.println("Please enter valid input!");
-        showAdminMenu();
     }
-    //return newRooms;
-}
 
     public static void showAdminMenu() {
         System.out.println("\nAdmin Menu \n"+
@@ -107,7 +100,6 @@ public static void addRoom(){
                            "5. Back to Main Menu \n"+ // retujrn back to main menu
                            "6. Populate test data \n"+
                            "------------------------------------------ ");
-//    //Provide a menu option from the Admin menu to populate the system with test data (Customers, Rooms and Reservations).
         try {
             Scanner scanner = new Scanner(System.in);
             int inputNumber = scanner.nextInt();

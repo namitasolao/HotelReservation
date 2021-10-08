@@ -3,7 +3,6 @@ package api;
 import model.Customer;
 import model.IRoom;
 import model.Room;
-import model.RoomType;
 import service.CustomerService;
 import service.ReservationService;
 
@@ -16,8 +15,6 @@ import java.util.List;
 import static model.RoomType.*;
 
 public class AdminResource {
-    //    public Customer getCustomer(String customerEmail){}
-
     public static void createTestData(){
         // customer
         HotelResource.creatACustomer("Andrew", "S." ,"andrew@domain.com");

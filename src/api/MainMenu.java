@@ -28,14 +28,12 @@ public class MainMenu {
     }
 
     public static Date askCheckInOutDate(String inOut){
-         //Date inputDate = new Date("06/08/2020");
         while(true) {
             try {
                 Scanner scanner2 = new Scanner(System.in);
                 System.out.println("Enter "+inOut+" date mm/dd/yyyy example 01/21/2021");
                 Date inputDate = new SimpleDateFormat("MM/dd/yyyy").parse(scanner2.next());
                 return inputDate;
-               // Date trueDate = Date.from(inputDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
             } catch (Exception e) {
                 System.out.println("Please enter a valid date!");
                 continue;

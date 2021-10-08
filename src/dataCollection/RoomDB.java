@@ -1,7 +1,6 @@
 package dataCollection;
 
 import model.IRoom;
-
 import java.util.*;
 
 public class RoomDB {
