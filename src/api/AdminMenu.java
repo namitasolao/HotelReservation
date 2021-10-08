@@ -23,7 +23,7 @@ public class AdminMenu {
                 try {
                     System.out.println("Enter room number ");
                     roomNumber = scanner2.nextInt();
-                    if (ReservationService.roomExists(roomNumber.toString())) {
+                    if (ReservationService.getInstance().roomExists(roomNumber.toString())) {
                         System.out.println("Room with this number already exists!");
                     } else {
                         break;

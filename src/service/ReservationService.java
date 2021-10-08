@@ -11,31 +11,38 @@ import java.util.Collection;
 import java.util.Date;
 
 public class ReservationService {
-    public static Collection<IRoom> getAllRooms(){
+
+    private static final ReservationService instance = new ReservationService();
+
+    public static ReservationService getInstance() {
+        return instance;
+    }
+
+    public Collection<IRoom> getAllRooms(){
        return RoomDB.getAllRooms();
     }
 
-    public static boolean roomExists(String roomNumber){
+    public boolean roomExists(String roomNumber){
         if (RoomDB.getRoom(roomNumber) == null)
             return false;
         return true;
     }
 
-    public static void addRoom(IRoom room){
+    public void addRoom(IRoom room){
         RoomDB.addRoom(room.getRoomnumber() , room);
     }
 
-    public static IRoom getRoom(String roomId){
+    public IRoom getRoom(String roomId){
        return RoomDB.getRoom(roomId);
     }
 
-    public static Reservation reserveARoom(Date checkInDate , Date checkOutDate , Customer customer , IRoom room){
+    public Reservation reserveARoom(Date checkInDate , Date checkOutDate , Customer customer , IRoom room){
         Reservation newReservation = new Reservation(customer, room, checkInDate, checkOutDate);
         ReservationDB.addAReservation( newReservation);
         return newReservation;
     }
 
-    public static Collection<IRoom> findRooms(Date checkInDate, Date checkOutDate){
+    public Collection<IRoom> findRooms(Date checkInDate, Date checkOutDate){
         Collection<IRoom> allRooms =  RoomDB.getAllRooms();
         Collection<Reservation> allReservations = ReservationDB.getAllReservations();
         Collection<IRoom> availableRooms = new ArrayList<IRoom>();
@@ -84,7 +91,7 @@ public class ReservationService {
         return availableRooms;
     }
 
-    public static Collection<Reservation> getCustomersReservation(Customer customer){
+    public Collection<Reservation> getCustomersReservation(Customer customer){
         Collection<Reservation> customerReservations = new ArrayList<Reservation>();
         for (Reservation reservation : ReservationDB.getAllReservations()){
             if(reservation.getCustomer().equals( customer)){
@@ -94,7 +101,7 @@ public class ReservationService {
         return customerReservations;
 
     }
-    public static void printAllReservations(){
+    public void printAllReservations(){
         Collection<Reservation> allReservations = ReservationDB.getAllReservations();
         if(allReservations.isEmpty()){
             System.out.println("No reservations found!");
@@ -105,7 +112,7 @@ public class ReservationService {
         }
     }
 
-    public static void printAllRooms() {
+    public void printAllRooms() {
         for (IRoom rooms : RoomDB.getAllRooms()) {
             System.out.println(rooms.toString());
         }

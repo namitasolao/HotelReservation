@@ -28,7 +28,7 @@ public class AdminResource {
             //reservation
             Date checIn = new SimpleDateFormat("MM/dd/yyyy").parse("01/03/2021");
             Date checOut = new SimpleDateFormat("MM/dd/yyyy").parse("01/13/2021");
-            ReservationService.reserveARoom(checIn, checOut, HotelResource.getCustomer("andrew@domain.com"), newRoom);
+            ReservationService.getInstance().reserveARoom(checIn, checOut, HotelResource.getCustomer("andrew@domain.com"), newRoom);
         }catch (Exception e){
             System.out.println("Error in parsing date :"+e.fillInStackTrace());
         }
@@ -36,17 +36,17 @@ public class AdminResource {
 
     public static void addRoom(List<IRoom> rooms){
         for(IRoom room : rooms){
-            ReservationService.addRoom(room);
+            ReservationService.getInstance().addRoom(room);
         }
     }
 
     public static Collection<IRoom> getAllRooms(){
-        Collection<IRoom> allRooms = ReservationService.getAllRooms();
+        Collection<IRoom> allRooms = ReservationService.getInstance().getAllRooms();
         if(allRooms.isEmpty()){
             System.out.println("No rooms found!");
             AdminMenu.showAdminMenu();
         }
-        ReservationService.printAllRooms();
+        ReservationService.getInstance().printAllRooms();
         return allRooms;
     }
 
@@ -63,6 +63,6 @@ public class AdminResource {
     }
 
     public static void displayAllReservations(){
-        ReservationService.printAllReservations();
+        ReservationService.getInstance().printAllReservations();
     }
 }

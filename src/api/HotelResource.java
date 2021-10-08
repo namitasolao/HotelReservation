@@ -31,17 +31,17 @@ public class HotelResource {
     }
 
     public static IRoom getRoom(String roomNumber){
-        return ReservationService.getRoom(roomNumber);
+        return ReservationService.getInstance().getRoom(roomNumber);
     }
 
    public static Reservation bookARoom(Date checkInDate , Date checkOutDate , String customerEmail , IRoom room ){
-        Reservation newReservation = ReservationService.reserveARoom(checkInDate , checkOutDate , getCustomer(customerEmail) ,room);
+        Reservation newReservation = ReservationService.getInstance().reserveARoom(checkInDate , checkOutDate , getCustomer(customerEmail) ,room);
         System.out.println(newReservation.toString());
         return newReservation;
    }
 
     public static Collection<Reservation> getCustomerReservations(String customerEmail){
-        Collection<Reservation> customerReservations = ReservationService.getCustomersReservation(CustomerService.getCustomer(customerEmail));
+        Collection<Reservation> customerReservations = ReservationService.getInstance().getCustomersReservation(CustomerService.getCustomer(customerEmail));
         if(customerReservations.isEmpty()){
             System.out.println("No reservations found for this customer!");
         } else {
@@ -53,7 +53,7 @@ public class HotelResource {
     }
 
     public static Collection<IRoom> findARoom(Date checkInDate , Date checkOutDate) {
-        Collection<IRoom> availableRooms = ReservationService.findRooms(checkInDate , checkOutDate);
+        Collection<IRoom> availableRooms = ReservationService.getInstance().findRooms(checkInDate , checkOutDate);
         if(availableRooms.isEmpty()){
             System.out.println("No Rooms are available");
             MainMenu.showMainMenu();

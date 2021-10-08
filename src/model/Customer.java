@@ -3,23 +3,14 @@ package model;
 import service.CustomerService;
 
 public class Customer {
-    private String firstName;
-    private String lastName;
-    private String email;
-
-    public Customer(){}
+    private final String firstName;
+    private final String lastName;
+    private final String email;
 
     public Customer(String firstName , String lastName , String email){
         this.firstName = firstName;
         this.lastName = lastName;
-        try {
-            if (CustomerService.validateEmail(email))
-                this.email = email;
-            else throw new IllegalArgumentException();
-        } catch (IllegalArgumentException ex){
-            System.out.println("enter valid emailid");
-            System.out.println(ex.getStackTrace()); //Correct handelling
-        }
+        this.email = email;
     }
 
     //* Accessor methods(getters) *//
@@ -31,17 +22,6 @@ public class Customer {
     }
     public String getEmail(){
         return this.email;
-    }
-
-    //* Mutator methods(setters) *//
-    public void setFirstName(String firstName){
-        this.firstName = firstName;
-    }
-    public void setLastName(String lastName){
-        this.lastName = lastName;
-    }
-    public void setEmail(String email){
-        this.email = email;
     }
 
     @Override
