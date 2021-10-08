@@ -46,41 +46,21 @@ public class ReservationService {
         Collection<IRoom> allRooms =  RoomDB.getAllRooms();
         Collection<Reservation> allReservations = ReservationDB.getAllReservations();
         Collection<IRoom> availableRooms = new ArrayList<IRoom>();
-        boolean firstRun = true;
 
         try {
-            while (true) {
-                for (IRoom room : allRooms) {
-                    availableRooms.add(room);
-                }
-                for (IRoom room : allRooms) {
-                    String roomID = room.getRoomnumber();
-                    for (Reservation res : allReservations) {
-                        if ((roomID == res.getRoom().getRoomnumber()) &&
-                                (!(checkInDate.before(res.getCheckInDate()) && checkOutDate.before(res.getCheckInDate())) &&
-                                !(checkInDate.after(res.getCheckOutDate()) && checkOutDate.after(res.getCheckOutDate())))
-                        ) {
-                            availableRooms.remove(room);
-                        }
+            for (IRoom room : allRooms) {
+                availableRooms.add(room);
+            }
+            for (IRoom room : allRooms) {
+                String roomID = room.getRoomnumber();
+                for (Reservation res : allReservations) {
+                    if ((roomID == res.getRoom().getRoomnumber()) &&
+                            (!(checkInDate.before(res.getCheckInDate()) && checkOutDate.before(res.getCheckInDate())) &&
+                            !(checkInDate.after(res.getCheckOutDate()) && checkOutDate.after(res.getCheckOutDate())))
+                    ) {
+                        availableRooms.remove(room);
                     }
                 }
-                //if no room is available then serach for next 7 days
-                if (availableRooms.isEmpty() && firstRun) {
-                    System.out.println("Rooms are not available for the given dates. \nChecking availablity for next 7 days!");
-                    Calendar c = Calendar.getInstance();
-                    c.setTime(checkInDate);
-                    c.add(Calendar.DAY_OF_MONTH, 7);
-                    checkInDate = c.getTime();
-
-                    Calendar c2 = Calendar.getInstance();
-                    c2.setTime(checkOutDate);
-                    c2.add(Calendar.DAY_OF_MONTH, 7);
-                    checkOutDate = c.getTime();
-
-                    firstRun = false;
-                    continue;
-                } else
-                    break;
             }
             for (IRoom availRooms : availableRooms) {
                 System.out.println(availRooms);

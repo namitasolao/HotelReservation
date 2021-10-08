@@ -56,7 +56,7 @@ public class HotelResource {
         Collection<IRoom> availableRooms = ReservationService.getInstance().findRooms(checkInDate , checkOutDate);
         if(availableRooms.isEmpty()){
             System.out.println("No Rooms are available");
-            MainMenu.showMainMenu();
+            //MainMenu.showMainMenu();
         }
         return availableRooms;
     }

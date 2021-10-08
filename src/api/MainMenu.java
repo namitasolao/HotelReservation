@@ -2,10 +2,7 @@ package api;
 
 import model.IRoom;
 import java.text.SimpleDateFormat;
-import java.util.Collection;
-import java.util.Date;
-import java.util.Locale;
-import java.util.Scanner;
+import java.util.*;
 
 public class MainMenu {
 
@@ -83,6 +80,13 @@ public class MainMenu {
         HotelResource.creatACustomer(firstName , lastName , email);
     }
 
+    private static Collection<IRoom> modifiedSearch(Date checkInDate , Date checkOutDate){
+        Collection<IRoom> availableRooms = HotelResource.findARoom(checkInDate, checkOutDate);
+        if(availableRooms.isEmpty())
+            showMainMenu();
+        return availableRooms;
+    }
+
     public static void showMainMenu() {
         System.out.println("\n ------------------------------------------ \n"+
                            "Welcome to the Hotel Reservation Application \n"+
@@ -114,6 +118,19 @@ public class MainMenu {
                    break;
                }
                 Collection<IRoom> availableRooms = HotelResource.findARoom(checkIn, checkOut);
+                if(availableRooms.isEmpty()){
+                    System.out.println("Rooms are not available for the given dates. \nChecking availablity for next 7 days!");
+                    Calendar c = Calendar.getInstance();
+                    c.setTime(checkIn);
+                    c.add(Calendar.DAY_OF_MONTH, 7);
+                    checkIn = c.getTime();
+
+                    Calendar c2 = Calendar.getInstance();
+                    c2.setTime(checkOut);
+                    c2.add(Calendar.DAY_OF_MONTH, 7);
+                    checkOut = c2.getTime();
+                    availableRooms = modifiedSearch(checkIn, checkOut);
+                }
                 while(true) {
                     Scanner scanner2 = new Scanner(System.in);
                     System.out.println("Would you like to book a room? Y/N");
