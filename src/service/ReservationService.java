@@ -17,6 +17,9 @@ public class ReservationService {
         return instance;
     }
 
+    private ReservationService() {
+    }
+
     public Collection<IRoom> getAllRooms(){
        return RoomDB.getAllRooms();
     }

@@ -51,7 +51,7 @@ public class AdminResource {
     }
 
     public static Collection<Customer> getAllCustomers(){
-        Collection<Customer> allCustomers = CustomerService.getAllCustomers();
+        Collection<Customer> allCustomers = CustomerService.getInstance().getAllCustomers();
         if(allCustomers.isEmpty()){
             System.out.println("No customers found!");
             AdminMenu.showAdminMenu();

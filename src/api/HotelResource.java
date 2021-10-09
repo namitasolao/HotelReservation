@@ -13,19 +13,19 @@ import java.util.Date;
 public class HotelResource {
 
     public static boolean customerExists(String email){
-       return CustomerService.customerExists(email);
+       return CustomerService.getInstance().customerExists(email);
     }
     public static Customer getCustomer(String email){
-        return CustomerService.getCustomer(email);
+        return CustomerService.getInstance().getCustomer(email);
     }
-    public static boolean validateEmail(String email){return CustomerService.validateEmail(email); }
+    public static boolean validateEmail(String email){return CustomerService.getInstance().validateEmail(email); }
 
 
     public static void creatACustomer(String firstName , String lastName , String email){
-        if(CustomerService.customerExists(email)){
+        if(CustomerService.getInstance().customerExists(email)){
             System.out.println("Customer already exists!");
         } else {
-            CustomerService.addCustomer(email, firstName, lastName);
+            CustomerService.getInstance().addCustomer(email, firstName, lastName);
             System.out.println("Account created!");
         }
     }
@@ -41,7 +41,7 @@ public class HotelResource {
    }
 
     public static Collection<Reservation> getCustomerReservations(String customerEmail){
-        Collection<Reservation> customerReservations = ReservationService.getInstance().getCustomersReservation(CustomerService.getCustomer(customerEmail));
+        Collection<Reservation> customerReservations = ReservationService.getInstance().getCustomersReservation(CustomerService.getInstance().getCustomer(customerEmail));
         if(customerReservations.isEmpty()){
             System.out.println("No reservations found for this customer!");
         } else {
