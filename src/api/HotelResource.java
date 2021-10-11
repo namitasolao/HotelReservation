@@ -6,8 +6,10 @@ import model.Reservation;
 import service.CustomerService;
 import service.ReservationService;
 
+import javax.crypto.Cipher;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 
 public class HotelResource {
@@ -54,11 +56,12 @@ public class HotelResource {
 
     public static Collection<IRoom> findARoom(Date checkInDate , Date checkOutDate) {
         Collection<IRoom> availableRooms = ReservationService.getInstance().findRooms(checkInDate , checkOutDate);
-        if(availableRooms.isEmpty()){
-            System.out.println("No Rooms are available");
-            //MainMenu.showMainMenu();
-        }
         return availableRooms;
     }
+
+    public static Collection<Date> getModifiedCheckInOutDates(Date checkIn , Date checkOut){
+        return ReservationService.getInstance().getModifiedCheckInOutDates(checkIn , checkOut);
+    }
+
 }
 

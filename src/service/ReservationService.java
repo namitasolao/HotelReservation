@@ -6,6 +6,7 @@ import model.Reservation;
 import dataCollection.RoomDB;
 import dataCollection.ReservationDB;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 
@@ -102,5 +103,21 @@ public class ReservationService {
         for (IRoom availRooms : availableRooms) {
             System.out.println(availRooms);
         }
+    }
+
+    public Collection<Date> getModifiedCheckInOutDates(Date checkIn , Date checkOut){
+        Collection<Date> output = new ArrayList<Date>();
+
+        Calendar c = Calendar.getInstance();
+        c.setTime(checkIn);
+        c.add(Calendar.DAY_OF_MONTH, 7);
+        output.add(c.getTime());
+
+        Calendar c2 = Calendar.getInstance();
+        c2.setTime(checkOut);
+        c2.add(Calendar.DAY_OF_MONTH, 7);
+        output.add(c2.getTime());
+
+        return output;
     }
 }
